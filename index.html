@@ -15,25 +15,7 @@
 <canvas id="myChart"></canvas>
 
 <script>
-    function downsample(data, visibleTimeSpan) {
-        const totalDataPoints = data.length;
-        let interval = Math.ceil(totalDataPoints / visibleTimeSpan);
-
-        let downsampledData = [];
-        for (let i = 0; i < totalDataPoints; i += interval) {
-            let avgY = 0;
-            let count = 0;
-            for (let j = i; j < i + interval && j < totalDataPoints; j++) {
-                avgY += data[j].y;
-                count++;
-            }
-            avgY /= count;
-            downsampledData.push({ x: data[i].x, y: avgY });
-        }
-
-        return downsampledData;
-    }
-
+   
     const ctx = document.getElementById('myChart').getContext('2d');
 
     const chart = new Chart(ctx, {
@@ -121,20 +103,7 @@
         }
     });
 
-    chart.canvas.addEventListener('mouseup', function() {
-        const visibleTimeSpan = chart.scales.x.max - chart.scales.x.min;
-        const downsampledChlorData = downsample(chartData.chlorData, visibleTimeSpan);
-        const downsampledPHData = downsample(chartData.pHData, visibleTimeSpan);
-        const downsampledTempData = downsample(chartData.tempData, visibleTimeSpan);
-        const downsampledRedoxData = downsample(chartData.redoxData, visibleTimeSpan);
 
-        // Update the chart data and re-render
-        chart.data.datasets[0].data = downsampledChlorData;
-        chart.data.datasets[1].data = downsampledPHData;
-        chart.data.datasets[2].data = downsampledTempData;
-        chart.data.datasets[3].data = downsampledRedoxData;
-        chart.update();
-    });
 
 </script>
 
