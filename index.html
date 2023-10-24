@@ -1,111 +1,114 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart.js Beispiel</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@1.1.1"></script>
     <script src="data.js"></script>
 </head>
+
 <body>
 
-<canvas id="myChart"></canvas>
+    <canvas id="myChart"></canvas>
 
-<script>
-   
-    const ctx = document.getElementById('myChart').getContext('2d');
+    <script>
 
-    const chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Chlor',
-                data: chartData.chlorData,
-                borderColor: 'blue',
-                fill: false,
-                yAxisID: 'y-chlor'
-            }, {
-                label: 'pH',
-                data: chartData.pHData,
-                borderColor: 'green',
-                fill: false,
-                yAxisID: 'y-ph'
-            }, {
-                label: 'Temperatur',
-                data: chartData.tempData,
-                borderColor: 'red',
-                fill: false,
-                yAxisID: 'y-temp'
-            }, {
-                label: 'Redox',
-                data: chartData.redoxData,
-                borderColor: 'purple',
-                fill: false,
-                yAxisID: 'y-redox'
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    type: 'timeseries',
-                    time: {
-                        parser: 'HH:mm:ss',
-                        unit: 'hour',
-                        displayFormats: {
-                            hour: 'HH:mm:ss'
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'Chlor',
+                    data: chartData.chlorData,
+                    borderColor: 'blue',
+                    fill: false,
+                    yAxisID: 'y-chlor'
+                }, {
+                    label: 'pH',
+                    data: chartData.pHData,
+                    borderColor: 'green',
+                    fill: false,
+                    yAxisID: 'y-ph'
+                }, {
+                    label: 'Temperatur',
+                    data: chartData.tempData,
+                    borderColor: 'red',
+                    fill: false,
+                    yAxisID: 'y-temp'
+                }, {
+                    label: 'Redox',
+                    data: chartData.redoxData,
+                    borderColor: 'purple',
+                    fill: false,
+                    yAxisID: 'y-redox'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'timeseries',
+                        time: {
+                            parser: 'HH:mm:ss',
+                            unit: 'hour',
+                            displayFormats: {
+                                hour: 'HH:mm:ss'
+                            }
                         }
+                    },
+                    'y-chlor': {
+                        type: 'linear',
+                        position: 'left'
+                    },
+                    'y-ph': {
+                        type: 'linear',
+                        position: 'right',
+                        offset: true
+                    },
+                    'y-temp': {
+                        type: 'linear',
+                        position: 'left',
+                        offset: true
+                    },
+                    'y-redox': {
+                        type: 'linear',
+                        position: 'right'
                     }
                 },
-                'y-chlor': {
-                    type: 'linear',
-                    position: 'left'
-                },
-                'y-ph': {
-                    type: 'linear',
-                    position: 'right',
-                    offset: true
-                },
-                'y-temp': {
-                    type: 'linear',
-                    position: 'left',
-                    offset: true
-                },
-                'y-redox': {
-                    type: 'linear',
-                    position: 'right'
-                }
-            },
-            plugins: {
-                zoom: {
-                    pan: {
-                        enabled: true,
-                        mode: 'x',
-                        speed: 10
+                plugins: {
+                    limits: {
+                        x: { min: -200, max: 200, minRange: 50 },
+                        y: { min: -200, max: 200, minRange: 50 }
                     },
                     zoom: {
-                        wheel: {
-                            enabled: true
+                        pan: {
+                            enabled: true,
+                            mode: 'xy'
                         },
-                        drag: {
-                            enabled: true
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'x',
-                        speed: 0.1
+                        zoom: {
+                            wheel: {
+                                enabled: true
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'xy'
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 
 
 
-</script>
+    </script>
 
 </body>
+
 </html>
